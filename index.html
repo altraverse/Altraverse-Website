@@ -450,29 +450,31 @@ with responsibility, clarity, and purpose.
     </div>
 
     <div id="contact-form-box" class="contact-form-container p-12 rounded-[35px]">
-      <form id="contact-form" class="space-y-6">
+      <form id="contact-form" action="https://formspree.io/f/mykkkoor" method="POST" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div class="space-y-2">
             <label class="text-[11px] font-black uppercase text-slate-800">Name</label>
-            <input id="input-name" type="text" placeholder="Your name" class="contact-input-field">
+            <input id="input-name" placeholder="Your name" type="text" name="name" class="contact-input-field">
           </div>
           <div class="space-y-2">
             <label class="text-[11px] font-black uppercase text-slate-800">Email</label>
-            <input id="input-email" type="email" placeholder="you@example.com" class="contact-input-field">
+            <input id="input-email" type="email" name="email" placeholder="you@example.com" class="contact-input-field">
           </div>
         </div>
         <div class="space-y-2">
           <label class="text-[11px] font-black uppercase text-slate-800">Subject</label>
-          <input id="input-subject" type="text" placeholder="How can we help?" class="contact-input-field">
+          <input id="input-subject" type="text" name="subject" placeholder="How can we help?" class="contact-input-field">
         </div>
         <div class="space-y-2">
           <label class="text-[11px] font-black uppercase text-slate-800">Message</label>
-          <textarea id="input-message" rows="5" placeholder="Tell us about your project..." class="contact-input-field resize-none"></textarea>
+          <textarea id="input-message" rows="5" name="message" placeholder="Tell us about your project..." class="contact-input-field resize-none"></textarea>
         </div>
-        <button id="submit-button" type="button" class="contact-submit-btn w-full py-3 rounded-2xl text-white font-bold flex items-center justify-center gap-3">
+        <input type="text" name="_gotcha" style="display: none;">
+        <button id="submit-button" type="submit" class="contact-submit-btn w-full py-3 rounded-2xl text-white font-bold flex items-center justify-center gap-3">
           Send Message <i class="ri-arrow-right-line"></i>
         </button>
       </form>
+      <p id="form-status" class="mt-4 txt-sm"></p>
     </div>
   </div>
 </section>

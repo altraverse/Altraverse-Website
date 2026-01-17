@@ -113,3 +113,35 @@ if (nav) {
     initNavbarCollapse();
   }
 })();
+
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    status.textContent = "Sending...";
+    status.style.color = "#333";
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      if (response.ok) {
+        status.textContent = "✅ Message sent successfully!";
+        status.style.color = "green";
+        form.reset();
+      } else {
+        status.textContent = "❌ Failed to send message.";
+        status.style.color = "red";
+      }
+    } catch (error) {
+      status.textContent = "❌ Network error. Try again later.";
+      status.style.color = "red";
+    }
+  });
