@@ -557,6 +557,25 @@ footer {
   width: 100%;
 }
 
+/* Fix long names inside founder/cofounder cards without affecting other headings */
+/* #founder-card h2, */
+#cofounder-card h2 {
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  font-size: clamp(2.3rem, 4.5vw, 3rem);
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
+}
+
+/* Slightly reduce the large label above the name on small screens */
+@media (max-width: 480px) {
+  #founder-card .uppercase,
+  #cofounder-card .uppercase {
+    font-size: 10px;
+  }
+}
+
 .product-launch-banner:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(129, 140, 248, 0.3);
