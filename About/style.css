@@ -1,0 +1,239 @@
+:root {
+    --bg: #ffffff;
+    --text: #000000;
+    --muted: #888888;
+    --block-bg: #f8f8f8;
+    --hover-bg: #f0f0f0;
+    --transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 80px 40px;
+}
+
+/* --- Header --- */
+.header {
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.header-title {
+    font-size: clamp(36px, 6vw, 68px);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+/* --- Team Container --- */
+#team-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Base Member Block Layout (Odd Rows) */
+.member-row {
+    display: grid;
+    grid-template-columns: 60px 1.3fr 0.7fr;
+    padding: 50px 40px;
+    background-color: var(--block-bg);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(30px);
+    border-radius: 32px;
+    align-items: center;
+}
+
+/* --- Alternating Layout Logic --- */
+.member-row:nth-child(even) {
+    grid-template-columns: 60px 0.7fr 1.3fr;
+}
+
+.member-row:nth-child(even) .info-col {
+    order: 3;
+    padding-right: 0;
+    padding-left: 60px;
+    text-align: left;
+}
+
+.member-row:nth-child(even) .visual-col {
+    order: 2;
+    justify-content: flex-start;
+}
+
+.member-row:nth-child(even) .member-index {
+    order: 1;
+}
+
+.member-row.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.member-row:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.015);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+}
+
+/* Index Number */
+.member-index {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--muted);
+    transition: var(--transition);
+}
+
+.member-row:hover .member-index {
+    color: var(--text);
+    transform: scale(1.2);
+}
+
+/* Info Column */
+.info-col {
+    padding-right: 60px;
+    transition: var(--transition);
+}
+
+.member-role {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 12px;
+    transition: var(--transition);
+}
+
+.member-row:hover .member-role {
+    color: var(--text);
+    letter-spacing: 0.35em;
+}
+
+.member-name {
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 18px;
+    transition: var(--transition);
+}
+
+/* Biography: Justified */
+.member-bio {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 25px;
+    text-align: justify;
+    transition: var(--transition);
+    hyphens: auto;
+}
+
+.member-row:hover .member-bio {
+    color: var(--text);
+}
+
+/* Social Icons */
+.socials {
+    display: flex;
+    gap: 12px;
+}
+
+.icon-link {
+    width: 42px;
+    height: 42px;
+    background: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.icon-link svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text);
+    transition: var(--transition);
+}
+
+.icon-link:hover {
+    background: var(--text);
+    transform: translateY(-8px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.icon-link:hover svg {
+    fill: var(--bg);
+}
+
+/* Visual Column (Area for your images) */
+.visual-col {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Mobile Layout */
+@media (max-width: 992px) {
+    .wrapper {
+        padding: 40px 20px;
+    }
+
+    .member-row,
+    .member-row:nth-child(even) {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .info-col,
+    .member-row:nth-child(even) .info-col {
+        padding: 0;
+        margin-bottom: 40px;
+        order: 2;
+    }
+
+    .visual-col,
+    .member-row:nth-child(even) .visual-col {
+        order: 1;
+        margin-bottom: 30px;
+        justify-content: center;
+    }
+
+    .member-index {
+        display: none;
+    }
+
+    .member-bio {
+        margin: 0 auto 25px auto;
+        text-align: center;
+    }
+
+    .socials {
+        justify-content: center;
+    }
+}

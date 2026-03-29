@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team — Altraverse</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --muted: #999999;
+            --alt-bg: #fcfcfc;
+            --hover-light: #f6f6f6;
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --border-color: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Subtle Noise Texture overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Map%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- Header Section --- */
+        .header-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 60px 50px 60px;
+        }
+
+        .header-title {
+            font-size: clamp(24px, 5vw, 48px);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* --- Team Container --- */
+        #team-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Animated Border Line logic */
+        .animated-line {
+            width: 100%;
+            height: 1px;
+            background-color: var(--border-color);
+            transform: scaleX(0);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: center;
+        }
+
+        .line-visible {
+            transform: scaleX(1);
+        }
+
+        /* --- Leader Rows (1-3) --- */
+        .member-row-full {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 60px 0;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            background-color: var(--bg);
+        }
+
+        .member-row-full:nth-of-type(odd) {
+            background-color: var(--alt-bg);
+        }
+
+        .member-row-full:hover {
+            background-color: var(--hover-light) !important;
+        }
+
+        .inner-full {
+            max-width: 1300px;
+            width: 100%;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 60px 1.2fr 0.8fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        /* Alternating Sides */
+        .member-row-full.is-flipped .info-col {
+            order: 3;
+        }
+
+        .member-row-full.is-flipped .visual-col {
+            order: 2;
+        }
+
+        /* --- Team Grid (4-8) --- */
+        .member-section-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .member-section-center {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .sub-member-cell {
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 20px;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            background-color: var(--bg);
+        }
+
+        /* Adjustment: Width of the 8th member is now shorter and more balanced */
+        .member-section-center .sub-member-cell {
+            width: 100%;
+            max-width: 800px;
+            /* Reduced from 1300px for a shorter look */
+            padding: 60px 60px;
+        }
+
+        .member-section-grid .sub-member-cell:first-child {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sub-member-cell:hover {
+            background-color: var(--hover-light);
+        }
+
+        .sub-content-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* --- Images --- */
+        .visual-col {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1 / 1;
+            /* Leader images are square */
+            margin-left: auto;
+        }
+
+        .member-row-full.is-flipped .visual-col {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .visual-col img {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: var(--transition);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .circle-img-wrap {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 25px;
+            background: #eee;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .circle-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .member-row-full:hover .visual-col img,
+        .sub-member-cell:hover .circle-img-wrap img {
+            filter: grayscale(0%);
+            transform: scale(1.04);
+        }
+
+        /* --- Typography --- */
+        .member-index {
+            font-size: 16px;
+            font-weight: 800;
+            opacity: 0.2;
+            padding-top: 5px;
+            transition: var(--transition);
+        }
+
+        .member-role {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--muted);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .member-name {
+            font-size: clamp(24px, 3.5vw, 42px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 15px;
+            display: block;
+            transform: none !important;
+            /* FIXED NAME */
+            transition: color 0.3s ease;
+        }
+
+        .member-bio {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 480px;
+            margin-bottom: 25px;
+            text-align: justify;
+            hyphens: auto;
+            transition: var(--transition);
+        }
+
+        .member-row-full:hover .member-bio,
+        .sub-member-cell:hover .member-bio {
+            color: var(--text);
+        }
+
+        .member-row-full:hover .member-index,
+        .sub-member-cell:hover .member-index {
+            opacity: 0.8;
+        }
+
+        /* --- Social Icons --- */
+        .socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .inner-full .socials {
+            justify-content: flex-start;
+        }
+
+        .sub-content-wrap .socials {
+            justify-content: center;
+        }
+
+        .mag-btn-wrap {
+            display: inline-flex;
+            transition: transform 0.2s ease-out;
+        }
+
+        .icon-link {
+            width: 42px;
+            height: 42px;
+            background: #ededed;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .icon-link svg {
+            width: 17px;
+            height: 17px;
+            fill: var(--text);
+        }
+
+        .icon-link:hover {
+            background: var(--text);
+            transform: scale(1.15) translateY(-3px);
+        }
+
+        .icon-link:hover svg {
+            fill: var(--bg);
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 992px) {
+            .inner-full {
+                grid-template-columns: 1fr;
+                padding: 40px 30px;
+                text-align: center;
+            }
+
+            .member-row-full {
+                padding: 50px 0;
+            }
+
+            .member-section-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sub-member-cell {
+                grid-template-columns: 1fr;
+                text-align: center;
+                border-right: none !important;
+            }
+
+            .visual-col {
+                order: -1 !important;
+                margin-bottom: 30px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .member-row-full.is-flipped .info-col {
+                order: 1;
+            }
+
+            .member-row-full.is-flipped .visual-col {
+                order: -1;
+            }
+
+            .member-bio {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .socials {
+                justify-content: center !important;
+            }
+
+            .member-index {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-section">
+        <h1 class="header-title">Minds<br>Beyond Altraverse</h1>
+    </header>
+
+    <div id="team-container">
+        <!-- Built by JS -->
+    </div>
+
+    <script>
+        const teamData = [
+            {
+                name: "Ronit Nagose", role: "Founder & CEO",
+                bio: "I define the company’s vision, mission, and long-term strategy while fostering a culture of ownership, innovation, and accountability. I work closely with leadership teams to align product, business, and customer outcomes, ensuring we build solutions that solve real problems and scale sustainably. My role focuses on decision-making, partnerships, and guiding the organization toward consistent growth and impact.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&h=800&auto=format&fit=crop",
+                socials: { linkedin: "https://www.linkedin.com/in/ronit-nagose-78911a343?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", x: "https://x.com/ronitnagos18?s=21", instagram: "https://www.instagram.com/ronitnagose?igsh=MTJld2VzNjA3cWJieg==" }
+            },
+            {
+                name: "Sanchay Wankhede", role: "Co-Founder & COO",
+                bio: "I lead day-to-day operations and execution to turn strategic plans into measurable outcomes. I streamline processes, coordinate cross-functional teams, and enable efficient delivery at scale. My focus is on operational excellence, execution discipline, and sustained organizational alignment.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&h=800&auto=format&fit=crop",
+                socials: { linkedin: "https://www.linkedin.com/in/sanchaywankhede?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", x: "", instagram: "" }
+            },
+            {
+                name: "Vedant Sahare", role: "Chief Technology Officer",
+                bio: "I own the technical vision and engineering strategy of the company, ensuring our technology is scalable, secure, and future-ready. I lead engineering teams, define system architecture, and make critical technical decisions that support product innovation and long-term growth. My role bridges technology and business to deliver reliable, high-quality solutions.",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&h=800&auto=format&fit=crop",
+                socials: { linkedin: "https://www.linkedin.com/in/vedant-sahare-98b75a32a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", x: "https://x.com/RrrSpyder73189", instagram: "https://www.instagram.com/vedantttt__07?igsh=MWVkNWdka3pwNm80YQ==" }
+            },
+            { name: "Saurabh Yadav", role: "Chief Management Officer", bio: "I oversee organizational management, cross-functional coordination, and internal processes to ensure teams operate efficiently and align with the company’s strategic goals.", image: "https://api.dicebear.com/7.x/initials/svg?seed=Saurabh", socials: { linkedin: "https://www.linkedin.com/in/saurabh-yadav-01a228362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", x: "https://x.com/MrSaurabhy7", instagram: "https://www.instagram.com/mr._.saurabh._.yadav?igsh=b2NjYTF1eXcxcHpv" } },
+            { name: "Nidhi Palandurkar", role: "Product Manager", bio: "I translate user needs and business goals into clear product strategies, priorities, and roadmaps that deliver meaningful outcomes.", image: "https://api.dicebear.com/7.x/initials/svg?seed=Nidhi", socials: { linkedin: "https://www.linkedin.com/in/nidhi-palandurkar-32b435377?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", x: "https://x.com/NidhiPalan26", instagram: "https://www.instagram.com/nidhiie26?igsh=cTY0aW12enU5Z3F1" } },
+            { name: "Tanuja Samrit", role: "Design Lead", bio: "I shape intuitive, accessible, and visually consistent experiences that align user needs with the product’s vision.", image: "https://api.dicebear.com/7.x/initials/svg?seed=Tanuja", socials: { linkedin: "https://www.linkedin.com/in/tanuja-samrit-36795732b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", x: "https://x.com/tanuja0814", instagram: "https://www.instagram.com/tanuja_0814?igsh=MWcxaGlteDdheWlseg==" } },
+            { name: "Prajakta Mangate", role: "Social Media Manager", bio: "I build and nurture our online presence, engage with our community, and amplify our story across digital platforms.", image: "https://api.dicebear.com/7.x/initials/svg?seed=Prajakta", socials: { linkedin: "https://www.linkedin.com/in/prajakta-mangate-b0563a335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", x: "https://x.com/Prajakta__2006", instagram: "https://www.instagram.com/prajakta_mangate?igsh=MWZ4dGF5bHJ4dTNnOA==" } },
+            { name: "Tejas Ganar", role: "Strategy Associate", bio: "I support strategic planning, process optimization, and data-driven decisions to help the company scale effectively.", image: "https://api.dicebear.com/7.x/initials/svg?seed=Tejas", socials: { linkedin: "https://www.linkedin.com/in/tejas-ganar-a95727343/", x: "https://x.com/TejasGanar13", instagram: "https://www.instagram.com/tejas_ganar_13?igsh=MXFvaGcybHp1eXkzZw==" } }
+        ];
+
+        const icons = {
+            linkedin: '<svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>',
+            x: '<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.045 4.126H5.078z"/></svg>',
+            instagram: '<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>'
+        };
+
+        function getSocialsHTML(personSocials) {
+            const wrapLink = (url, icon) => {
+                const href = url && url.trim() !== "" ? url : "javascript:void(0)";
+                const target = url && url.trim() !== "" ? 'target="_blank" rel="noopener noreferrer"' : "";
+                return `<div class="mag-btn-wrap"><a href="${href}" ${target} class="icon-link magnetic">${icon}</a></div>`;
+            };
+
+            return `
+                <div class="socials">
+                    ${wrapLink(personSocials.linkedin, icons.linkedin)}
+                    ${wrapLink(personSocials.x, icons.x)}
+                    ${wrapLink(personSocials.instagram, icons.instagram)}
+                </div>
+            `;
+        }
+
+        function createDivider() {
+            const div = document.createElement('div');
+            div.className = 'animated-line';
+            return div;
+        }
+
+        function render() {
+            const container = document.getElementById('team-container');
+
+            // Leaders 1-3
+            teamData.slice(0, 3).forEach((person, index) => {
+                const row = document.createElement('div');
+                row.className = `member-row-full ${index === 1 ? 'is-flipped' : ''}`;
+                row.innerHTML = `
+                    <div class="inner-full">
+                        <div class="member-index">0${index + 1}</div>
+                        <div class="info-col">
+                            <span class="member-role">${person.role}</span>
+                            <h2 class="member-name">${person.name}</h2>
+                            <p class="member-bio">${person.bio}</p>
+                            ${getSocialsHTML(person.socials)}
+                        </div>
+                        <div class="visual-col">
+                            <img src="${person.image}" alt="${person.name}">
+                        </div>
+                    </div>
+                `;
+                container.appendChild(row);
+                container.appendChild(createDivider());
+            });
+
+            // Grid Rows (4-7)
+            const grid1 = document.createElement('div');
+            grid1.className = 'member-section-grid';
+            grid1.innerHTML = buildSubMemberHTML(teamData[3], 3) + buildSubMemberHTML(teamData[4], 4);
+            container.appendChild(grid1);
+            container.appendChild(createDivider());
+
+            const grid2 = document.createElement('div');
+            grid2.className = 'member-section-grid';
+            grid2.innerHTML = buildSubMemberHTML(teamData[5], 5) + buildSubMemberHTML(teamData[6], 6);
+            container.appendChild(grid2);
+            container.appendChild(createDivider());
+
+            // Center Row (8) - Wider centered layout
+            const centerRow = document.createElement('div');
+            centerRow.className = 'member-section-center';
+            centerRow.innerHTML = buildSubMemberHTML(teamData[7], 7);
+            container.appendChild(centerRow);
+            container.appendChild(createDivider());
+
+            setupScrollReveal();
+            setupMagneticEffect();
+        }
+
+        function buildSubMemberHTML(person, index) {
+            return `
+                <div class="sub-member-cell">
+                    <div class="member-index">0${index + 1}</div>
+                    <div class="sub-content-wrap">
+                        <div class="circle-img-wrap">
+                            <img src="${person.image}" alt="${person.name}" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${person.name}'">
+                        </div>
+                        <span class="member-role">${person.role}</span>
+                        <h2 class="member-name">${person.name}</h2>
+                        <p class="member-bio">${person.bio}</p>
+                        ${getSocialsHTML(person.socials)}
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const lineObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('line-visible');
+                    }
+                });
+            }, { threshold: 1 });
+
+            document.querySelectorAll('.member-row-full, .sub-member-cell').forEach(el => observer.observe(el));
+            document.querySelectorAll('.animated-line').forEach(el => lineObserver.observe(el));
+        }
+
+        function setupMagneticEffect() {
+            const magnetElements = document.querySelectorAll('.mag-btn-wrap');
+            magnetElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
+                });
+                el.addEventListener('mouseleave', () => { el.style.transform = `translate(0px, 0px)`; });
+            });
+        }
+        window.onload = render;
+    </script>
+</body>
+
+</html>
