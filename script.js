@@ -126,6 +126,21 @@ window.addEventListener("resize", syncAccordionState);
 
 const navbarCollapse = document.getElementById("navbarNav");
 const navLinks = document.querySelectorAll(".nav-link");
+const navShell = document.querySelector(".nav-shell");
+
+if (navbarCollapse && navShell) {
+  navbarCollapse.addEventListener("show.bs.collapse", () => {
+    navShell.classList.add("nav-shell-expanded");
+  });
+
+  navbarCollapse.addEventListener("hide.bs.collapse", () => {
+    navShell.classList.remove("nav-shell-expanded");
+  });
+
+  navbarCollapse.addEventListener("hidden.bs.collapse", () => {
+    navShell.classList.remove("nav-shell-expanded");
+  });
+}
 
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {

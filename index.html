@@ -6,8 +6,10 @@
     <title>Altraverse</title>
     <link rel="icon" type="image/png" href="./newLogo.png" />
     <link rel="apple-touch-icon" href="./newLogo.png" />
+    <link rel="preload" as="image" href="./newLogo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
@@ -33,7 +35,15 @@
           <div class="nav-shell">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
               <span class="brand-mark">
-                <img class="brand-logo" src="./newLogo.png" alt="Altraverse logo" />
+                <img
+                  class="brand-logo"
+                  src="./newLogo.png"
+                  alt="Altraverse logo"
+                  width="500"
+                  height="500"
+                  fetchpriority="high"
+                  decoding="async"
+                />
               </span>
               <span class="brand-copy">
                 <strong>Altraverse</strong>
@@ -49,7 +59,11 @@
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span class="navbar-toggle-box" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mx-auto align-items-lg-center nav-center-badge">
@@ -599,7 +613,15 @@
               <div class="footer-brand">
                 <a class="navbar-brand d-inline-flex align-items-center gap-2 mb-3" href="#home">
                   <span class="brand-mark">
-                    <img class="brand-logo" src="./newLogo.png" alt="Altraverse logo" />
+                    <img
+                      class="brand-logo"
+                      src="./newLogo.png"
+                      alt="Altraverse logo"
+                      width="500"
+                      height="500"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </span>
                   <span class="brand-copy">
                     <strong>Altraverse</strong>
