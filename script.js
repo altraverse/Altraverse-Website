@@ -18,52 +18,6 @@ reveals.forEach((item) => revealObserver.observe(item));
 
 const navbar = document.querySelector(".premium-nav");
 
-const removeBlackBackgroundFromLogo = () => {
-  const logoImages = document.querySelectorAll(".brand-logo");
-  const favicon = document.querySelector('link[rel="icon"]');
-
-  if (!logoImages.length && !favicon) return;
-
-  const source = new Image();
-  source.src = "./%20Logo.png";
-
-  source.addEventListener("load", () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = source.naturalWidth;
-    canvas.height = source.naturalHeight;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    context.drawImage(source, 0, 0);
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const pixels = imageData.data;
-
-    for (let i = 0; i < pixels.length; i += 4) {
-      const red = pixels[i];
-      const green = pixels[i + 1];
-      const blue = pixels[i + 2];
-
-      if (red <= 20 && green <= 20 && blue <= 20) {
-        pixels[i + 3] = 0;
-      }
-    }
-
-    context.putImageData(imageData, 0, 0);
-    const transparentLogo = canvas.toDataURL("image/png");
-
-    logoImages.forEach((logo) => {
-      logo.src = transparentLogo;
-    });
-
-    if (favicon) {
-      favicon.href = transparentLogo;
-    }
-  });
-};
-
-removeBlackBackgroundFromLogo();
-
 const syncNavbarState = () => {
   if (window.scrollY > 32) {
     navbar.classList.add("scrolled");

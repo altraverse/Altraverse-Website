@@ -24,17 +24,26 @@
 
 html {
   scroll-behavior: smooth;
+  background: #050505;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   font-family: "Manrope", sans-serif;
+  background-color: #050505;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 26%),
     radial-gradient(circle at 80% 15%, rgba(200, 255, 220, 0.08), transparent 24%),
     linear-gradient(180deg, #020202 0%, #060709 45%, #030303 100%);
   color: var(--text);
   line-height: 1.5;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 a {
@@ -42,8 +51,9 @@ a {
 }
 
 .site-shell {
+  min-height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .site-shell::before {
@@ -152,8 +162,8 @@ a {
 .brand-mark {
   display: inline-grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -165,6 +175,7 @@ a {
   height: 100%;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 8px 18px rgba(217, 85, 218, 0.22));
 }
 
 .brand-copy {
@@ -984,6 +995,11 @@ a {
 }
 
 @media (max-width: 767.98px) {
+  html,
+  body {
+    background: #050505;
+  }
+
   .hero-section {
     padding-top: 112px;
     min-height: auto;
