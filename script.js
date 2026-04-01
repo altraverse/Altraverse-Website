@@ -1,24 +1,31 @@
-const reveals = document.querySelectorAll(".reveal");
+const navbar = document.querySelector(".premium-nav");
+const revealItems = document.querySelectorAll(".reveal");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isMobileView = () => window.innerWidth <= 991.98;
+const isCompactAccordionView = () => window.innerWidth <= 767.98;
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+  revealItems.forEach((item) => item.classList.add("is-visible"));
+} else {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
         entry.target.classList.add("is-visible");
         revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.15,
-  }
-);
+      });
+    },
+    {
+      threshold: 0.15,
+      rootMargin: "0px 0px -8% 0px",
+    }
+  );
 
-reveals.forEach((item) => revealObserver.observe(item));
-
-const navbar = document.querySelector(".premium-nav");
+  revealItems.forEach((item) => revealObserver.observe(item));
+}
 
 const syncNavbarState = () => {
+  if (!navbar) return;
   if (window.scrollY > 32) {
     navbar.classList.add("scrolled");
   } else {
@@ -26,8 +33,19 @@ const syncNavbarState = () => {
   }
 };
 
+let scrollTicking = false;
+const onScroll = () => {
+  if (scrollTicking) return;
+
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    syncNavbarState();
+    scrollTicking = false;
+  });
+};
+
 syncNavbarState();
-window.addEventListener("scroll", syncNavbarState);
+window.addEventListener("scroll", onScroll, { passive: true });
 
 const form = document.getElementById("contactForm");
 const formStatus = document.getElementById("form-status");
@@ -66,12 +84,10 @@ if (form && formStatus && submitButton) {
   });
 }
 
-const isMobileView = () => window.innerWidth <= 991.98;
-
 const accordionCards = document.querySelectorAll("[data-mobile-accordion]");
 
 const syncAccordionState = () => {
-  if (!isMobileView()) {
+  if (!isCompactAccordionView()) {
     accordionCards.forEach((card) => {
       card.classList.add("is-open");
       const trigger = card.querySelector(".accordion-trigger");
@@ -101,7 +117,7 @@ accordionCards.forEach((card) => {
   if (!trigger) return;
 
   trigger.addEventListener("click", () => {
-    if (!isMobileView()) return;
+    if (!isCompactAccordionView()) return;
 
     const group = card.dataset.mobileAccordion;
     const groupCards = document.querySelectorAll(`[data-mobile-accordion="${group}"]`);
@@ -122,19 +138,16 @@ accordionCards.forEach((card) => {
 });
 
 syncAccordionState();
-window.addEventListener("resize", syncAccordionState);
+window.addEventListener("resize", syncAccordionState, { passive: true });
 
 const navbarCollapse = document.getElementById("navbarNav");
 const navLinks = document.querySelectorAll(".nav-link");
 const navShell = document.querySelector(".nav-shell");
+const navToggle = document.querySelector(".navbar-toggler");
 
-if (navbarCollapse && navShell) {
+if (navToggle && navbarCollapse && navShell) {
   navbarCollapse.addEventListener("show.bs.collapse", () => {
     navShell.classList.add("nav-shell-expanded");
-  });
-
-  navbarCollapse.addEventListener("hide.bs.collapse", () => {
-    navShell.classList.remove("nav-shell-expanded");
   });
 
   navbarCollapse.addEventListener("hidden.bs.collapse", () => {
