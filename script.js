@@ -142,22 +142,10 @@ window.addEventListener("resize", syncAccordionState, { passive: true });
 
 const navbarCollapse = document.getElementById("navbarNav");
 const navLinks = document.querySelectorAll(".nav-link");
-const navShell = document.querySelector(".nav-shell");
-const navToggle = document.querySelector(".navbar-toggler");
-
-if (navToggle && navbarCollapse && navShell) {
-  navbarCollapse.addEventListener("show.bs.collapse", () => {
-    navShell.classList.add("nav-shell-expanded");
-  });
-
-  navbarCollapse.addEventListener("hidden.bs.collapse", () => {
-    navShell.classList.remove("nav-shell-expanded");
-  });
-}
 
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
-    if (!isMobileView()) return;
+    if (!isMobileView() || !navbarCollapse) return;
     const collapseInstance =
       bootstrap.Collapse.getInstance(navbarCollapse) ||
       new bootstrap.Collapse(navbarCollapse, { toggle: false });
