@@ -18,6 +18,34 @@
   --section-gap: 88px;
 }
 
+/* iOS/WebKit mobile performance guard for fixed navbar rendering */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 991.98px) {
+    .nav-shell {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .brand-logo {
+      filter: none;
+    }
+
+    .site-shell::before {
+      display: none;
+    }
+
+    .ambient {
+      filter: blur(48px);
+      opacity: 0.22;
+    }
+
+    .premium-nav .navbar-collapse.collapsing {
+      transition: none;
+    }
+  }
+}
+
 * {
   box-sizing: border-box;
 }
