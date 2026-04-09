@@ -1294,6 +1294,60 @@ main > section:not(.hero-section),
   }
 }
 
+/* Hero text rhythm refinement */
+.hero-section {
+  min-height: 95vh;
+}
+
+.hero-copy-centered {
+  max-width: 980px;
+}
+
+.hero-copy h1 {
+  margin-bottom: 1.3rem;
+}
+
+.hero-text {
+  max-width: 820px;
+  margin-top: 0.22rem;
+  font-size: 1.12rem;
+  line-height: 1.9;
+}
+
+@media (max-width: 991.98px) {
+  .hero-copy-centered {
+    max-width: 860px;
+  }
+
+  .hero-copy-centered h1 {
+    max-width: 12ch;
+  }
+
+  .hero-text {
+    max-width: 740px;
+    font-size: 1.04rem;
+    line-height: 1.82;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-stack {
+    gap: 24px;
+  }
+
+  .hero-copy-centered h1 {
+    max-width: 12.2ch;
+    margin-bottom: 1.02rem;
+  }
+
+  .hero-text {
+    max-width: 92vw;
+    margin-top: 0.3rem;
+    font-size: 0.98rem;
+    line-height: 1.78;
+  }
+}
+
 @media (max-width: 991.98px) {
   .nav-shell {
     min-height: 68px;
@@ -1395,6 +1449,15 @@ main > section:not(.hero-section),
   .hero-startup-band {
     grid-template-columns: 1fr;
   }
+
+  .hero-copy-centered .eyebrow-pill {
+    max-width: 82vw;
+    padding: 0.5rem 0.82rem;
+    font-size: 0.82rem;
+    line-height: 1.2;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -1427,12 +1490,31 @@ main > section:not(.hero-section),
   }
 
   .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+    align-items: center;
+    flex-wrap: nowrap;
   }
 
   .hero-actions .btn {
-    width: 100%;
+    width: auto;
+    min-width: 132px;
+    max-width: 44vw;
+    flex: 0 1 auto;
+  }
+
+  .hero-actions .btn.btn-lg {
+    padding: 0.68rem 0.7rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+
+  .hero-copy-centered .eyebrow-pill {
+    max-width: 76vw;
+    padding: 0.42rem 0.72rem;
+    font-size: 0.74rem;
+    white-space: nowrap;
   }
 
   .nav-shell {
@@ -1943,5 +2025,59 @@ main > section:not(.hero-section),
   .footer-copy {
     text-align: right;
     align-self: end;
+  }
+}
+
+/* Hero text rhythm refinement - final overrides */
+.hero-section {
+  min-height: 95vh;
+}
+
+.hero-copy-centered {
+  max-width: 980px;
+}
+
+.hero-copy h1 {
+  margin-bottom: 1.3rem;
+}
+
+.hero-text {
+  max-width: 820px;
+  margin-top: 0.22rem;
+  font-size: 1.12rem;
+  line-height: 1.9;
+}
+
+@media (max-width: 991.98px) {
+  .hero-copy-centered {
+    max-width: 860px;
+  }
+
+  .hero-copy-centered h1 {
+    max-width: 12ch;
+  }
+
+  .hero-text {
+    max-width: 740px;
+    font-size: 1.04rem;
+    line-height: 1.82;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-stack {
+    gap: 24px;
+  }
+
+  .hero-copy-centered h1 {
+    max-width: 12.2ch;
+    margin-bottom: 1.02rem;
+  }
+
+  .hero-text {
+    max-width: 92vw;
+    margin-top: 0.3rem;
+    font-size: 0.98rem;
+    line-height: 1.78;
   }
 }
