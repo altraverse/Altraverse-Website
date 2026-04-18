@@ -1,3 +1,7 @@
+@layer theme, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
 :root {
   --bg: #050505;
   --bg-soft: #0a0a0d;
@@ -229,6 +233,21 @@ main > section:not(.hero-section),
 
 .premium-nav .navbar-collapse {
   flex-grow: 1;
+}
+
+.navbar-collapse-desktop {
+  display: flex !important;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.navbar-collapse-mobile-hidden {
+  display: none;
+}
+
+.navbar-collapse-mobile-open {
+  display: block;
+  width: 100%;
 }
 
 .navbar-toggler {
@@ -957,6 +976,12 @@ main > section:not(.hero-section),
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
+/* React re-renders can replace DOM-mutated classes, so keep reveal blocks visible. */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .reveal-delay-1 {
   transition-delay: 0.12s;
 }
@@ -1349,6 +1374,11 @@ main > section:not(.hero-section),
 }
 
 @media (max-width: 991.98px) {
+  .navbar-collapse-desktop {
+    display: block !important;
+    width: 100%;
+  }
+
   .nav-shell {
     min-height: 68px;
     border-radius: 22px;
@@ -1398,6 +1428,10 @@ main > section:not(.hero-section),
 
   .premium-nav .navbar-collapse.show,
   .premium-nav .navbar-collapse.collapsing {
+    margin-top: 0.85rem;
+  }
+
+  .navbar-collapse-mobile-open {
     margin-top: 0.85rem;
   }
 
