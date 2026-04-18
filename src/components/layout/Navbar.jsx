@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "../../data/siteContent";
 import { cx } from "../../lib/cx";
+import Logo from "../../assets/newLogo.png";
 
 export default function Navbar({
   isScrolled,
@@ -40,7 +41,7 @@ export default function Navbar({
             <span className="brand-mark">
               <img
                 className="brand-logo"
-                src="/newLogo.png"
+                src={Logo}
                 alt="Altraverse logo"
                 width="500"
                 height="500"
