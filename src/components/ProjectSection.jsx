@@ -108,7 +108,7 @@ function MobileCarousel({ screenshots = [], activeIndex }) {
 
   const posStyle = {
     left: {
-      transform: "translateX(-42%) rotate(-8deg) scale(0.82)", // was -52%
+      transform: "translateX(-38%) rotate(-8deg) scale(0.82)", // was -42%
       zIndex: 1,
       opacity: 0.45,
     },
@@ -118,7 +118,7 @@ function MobileCarousel({ screenshots = [], activeIndex }) {
       opacity: 1,
     },
     right: {
-      transform: "translateX(42%) rotate(8deg) scale(0.82)", // was 52%
+      transform: "translateX(38%) rotate(8deg) scale(0.82)", // was 42%
       zIndex: 1,
       opacity: 0.45,
     },
@@ -126,16 +126,16 @@ function MobileCarousel({ screenshots = [], activeIndex }) {
   return (
     /* outer — takes full width of flagship panel, fixed height */
     <div
-      className="relative flex items-end justify-center mt-10"
-      style={{ height: 380, zIndex: 9999 }}
+      className="h-[250px] min-[500px]:h-[320px] sm:h-[380px] relative flex items-end justify-center mt-10"
+      style={{ zIndex: 9999 }}
     >
       {slots.map(({ imgIndex, pos }) => (
         <div
           key={`${pos}-${imgIndex}`}
           className=" absolute bottom-0 transition-all duration-1000 ease-out"
           style={{
-            width: "clamp(120px, 36vw, 200px)", // was fixed 200
-            height: "clamp(240px, 80vw, 450px)", // was fixed 450
+            width: "clamp(100px, 30vw, 200px)", // was 36vw — reduces mid-range size
+            height: "clamp(180px, 70vw, 450px)", // was 80vw — reduces mid-range size
             ...posStyle[pos],
           }}
         >
