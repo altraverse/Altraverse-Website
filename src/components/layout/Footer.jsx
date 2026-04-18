@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../../assets/newLogo.png";
 
 export default function Footer() {
   return (
@@ -14,7 +15,7 @@ export default function Footer() {
                 <span className="brand-mark">
                   <img
                     className="brand-logo"
-                    src="/newLogo.png"
+                    src={Logo}
                     alt="Altraverse logo"
                     width="500"
                     height="500"
