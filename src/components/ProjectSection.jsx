@@ -154,15 +154,15 @@ function MobileCarousel({ screenshots = [], activeIndex }) {
           >
             {/* notch */}
             {/* <div
-              className="absolute top-2 left-1/2 z-10 -translate-x-1/2"
-              style={{
-                width: 42,
-                height: 10,
-                borderRadius: 8,
-                background: "#0a0a0b",
-                border: "1.5px solid rgba(255,255,255,0.08)",
-              }}
-            /> */}
+                className="absolute top-2 left-1/2 z-10 -translate-x-1/2"
+                style={{
+                  width: 42,
+                  height: 10,
+                  borderRadius: 8,
+                  background: "#0a0a0b",
+                  border: "1.5px solid rgba(255,255,255,0.08)",
+                }}
+              /> */}
             <img
               src={screenshots[imgIndex]}
               alt="App screenshot"
@@ -199,10 +199,12 @@ function DotRow({ total, active }) {
 }
 
 /* ── Regular card preview (unchanged for non-featured) ───────────── */
-function ProjectPreview({ src, alt }) {
+function ProjectPreview({ src, alt, previewClass = "aspect-video" }) {
   if (src) {
     return (
-      <div className="relative aspect-video overflow-hidden rounded-[24px] border border-white/6 bg-[#111113]">
+      <div
+        className={`relative overflow-hidden rounded-[24px] border border-white/6 bg-[#111113] ${previewClass}`}
+      >
         <img
           src={src}
           alt={alt || "Project preview"}
@@ -311,8 +313,8 @@ function FeaturedProjectCard({ project }) {
               {project.index}
             </div>
             {/* <p className="mt-2 text-[0.72rem] font-extrabold uppercase tracking-[0.14em] text-[var(--muted)]">
-              Flagship project
-            </p> */}
+                Flagship project
+              </p> */}
           </div>
 
           {/* phone carousel */}
@@ -325,25 +327,25 @@ function FeaturedProjectCard({ project }) {
 
           {/* metrics */}
           {/* {project.metrics?.length ? (
-            <div className="mt-6 space-y-4 border-t border-white/6 pt-5">
-              {project.metrics.map((metric) => (
-                <div className="flex items-center gap-3" key={metric.label}>
-                  <span className="min-w-20 text-[0.72rem] text-[var(--muted)]">
-                    {metric.label}
-                  </span>
-                  <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/8">
-                    <div
-                      className="h-full rounded-full bg-[rgba(215,255,217,0.7)]"
-                      style={{ width: `${metric.value}%` }}
-                    />
+              <div className="mt-6 space-y-4 border-t border-white/6 pt-5">
+                {project.metrics.map((metric) => (
+                  <div className="flex items-center gap-3" key={metric.label}>
+                    <span className="min-w-20 text-[0.72rem] text-[var(--muted)]">
+                      {metric.label}
+                    </span>
+                    <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/8">
+                      <div
+                        className="h-full rounded-full bg-[rgba(215,255,217,0.7)]"
+                        style={{ width: `${metric.value}%` }}
+                      />
+                    </div>
+                    <span className="min-w-9 text-right text-[0.72rem] text-[var(--muted-strong)]">
+                      {metric.value}%
+                    </span>
                   </div>
-                  <span className="min-w-9 text-right text-[0.72rem] text-[var(--muted-strong)]">
-                    {metric.value}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : null} */}
+                ))}
+              </div>
+            ) : null} */}
         </div>
       </div>
     </article>
@@ -375,6 +377,34 @@ function RegularProjectCard({ project, revealClass }) {
   );
 }
 
+function WideProjectCard({ project }) {
+  return (
+    <article className="premium-card reveal md:col-span-2">
+      <div className="space-y-5">
+        <ProjectPreview
+          src={project.screenshot}
+          alt={project.title}
+          previewClass="aspect-video md:aspect-auto md:h-[380px]"
+        />
+        <div className="rounded-[22px] border border-white/6 bg-white/[0.02] p-5">
+          <ProjectTags tags={project.tags} />
+          <h3 className="mb-3 text-[1.5rem] font-extrabold tracking-[-0.04em] text-[var(--text)]">
+            {project.title}
+          </h3>
+          <p className="mb-6 text-[1rem] leading-[1.75] text-[var(--muted)]">
+            {project.description}
+          </p>
+          <ProjectFooter
+            tech={project.tech}
+            cta={project.cta}
+            href={project.href}
+          />
+        </div>
+      </div>
+    </article>
+  );
+}
+
 /* ── Main export ─────────────────────────────────────────────────── */
 export default function ProjectSection({
   projects = PROJECT_DATA,
@@ -384,6 +414,7 @@ export default function ProjectSection({
 }) {
   const featuredProject = projects.find((p) => p.featured);
   const regularProjects = projects.filter((p) => !p.featured);
+  const foodieProject = projects.find((p) => p.id === 4);
 
   return (
     <section id="projects" className="section-pad">
@@ -395,7 +426,12 @@ export default function ProjectSection({
         />
 
         <div className="grid gap-6 md:grid-cols-2">
-          {featuredProject && <FeaturedProjectCard project={featuredProject} />}
+          {foodieProject && <WideProjectCard project={foodieProject} />}{" "}
+          {/* Foodie first */}
+          {featuredProject && (
+            <FeaturedProjectCard project={featuredProject} />
+          )}{" "}
+          {/* Nagrow second */}
           {regularProjects.map((project, index) => (
             <RegularProjectCard
               key={project.id}
