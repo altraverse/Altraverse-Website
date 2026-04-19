@@ -24,7 +24,7 @@ export default function Footer() {
                   />
                 </span>
                 <span className="brand-copy">
-                  <strong>Altraverse</strong>
+                  <strong>Altraverse<sup>TM</sup></strong>
                   <small>Technology with purpose</small>
                 </span>
               </Link>
