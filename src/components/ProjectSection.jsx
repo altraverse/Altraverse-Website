@@ -37,6 +37,7 @@ export const PROJECT_DATA = [
     ],
     cta: "In Development",
     href: "#",
+    visible: true,
     // index: "01",
   },
   {
@@ -50,6 +51,7 @@ export const PROJECT_DATA = [
     screenshot: Medical,
     cta: "Explore",
     href: "https://mediplus-mmabiaa.vercel.app/",
+    visible: true,
   },
   {
     id: 3,
@@ -62,6 +64,7 @@ export const PROJECT_DATA = [
     screenshot: ParkSpot,
     cta: "Explore",
     href: "https://parkspot-23d2.onrender.com/",
+    visible: true,
   },
   {
     id: 4,
@@ -74,6 +77,7 @@ export const PROJECT_DATA = [
     screenshot: Foodie,
     cta: "Explore",
     href: "https://codewithsadee.github.io/foodie/",
+    visible: false,
   },
 ];
 
@@ -413,7 +417,9 @@ export default function ProjectSection({
   sectionLabel = "Our Work",
 }) {
   const featuredProject = projects.find((p) => p.featured);
-  const regularProjects = projects.filter((p) => !p.featured);
+  const regularProjects = projects.filter(
+    (p) => p.visible && !p.featured && p.id !== 4,
+  );
   const foodieProject = projects.find((p) => p.id === 4);
 
   return (
