@@ -88,6 +88,15 @@ a {
   overflow: visible;
 }
 
+.site-shell.site-shell-projects {
+  background: #000;
+}
+
+.site-shell.site-shell-projects::before,
+.site-shell.site-shell-projects .ambient {
+  display: none;
+}
+
 .site-shell::before {
   content: "";
   position: fixed;

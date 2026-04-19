@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import SiteShell from "./components/layout/SiteShell";
@@ -13,6 +13,7 @@ import Projects from "./pages/Projects";
 import ProjectsSection from "./components/ProjectSection";
 
 function App() {
+  const location = useLocation();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(
     window.innerWidth <= MOBILE_BREAKPOINT,
@@ -134,8 +135,10 @@ function App() {
     };
   };
 
+  const isProjectsRoute = location.pathname === "/projects";
+
   return (
-    <SiteShell>
+    <SiteShell className={isProjectsRoute ? "site-shell-projects" : ""}>
       <Navbar
         isScrolled={isScrolled}
         isNavOpen={isNavOpen}
